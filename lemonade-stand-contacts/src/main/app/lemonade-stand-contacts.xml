@@ -30,9 +30,10 @@ http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfd
 			port="${imap.port}" user="${imap.user}" password="${imap.password}"
 			responseTimeout="10000" doc:name="IMAP" />
         <transformer ref="emailToSalesForceContactList" doc:name="Email to SalesForce Contact List"/>
-        <sfdc:upsert config-ref="Salesforce"  doc:name="Salesforce" externalIdFieldName="OriginalEmail__c" type="Contact">
+		<logger message="Upsert contacts: #[payload]" level="INFO" category="SyncEmailContactsToSalesForce" doc:name="Logger"/>
+ 		<sfdc:upsert config-ref="Salesforce"  doc:name="Salesforce" externalIdFieldName="OriginalEmail__c" type="Contact"> 			
             <sfdc:objects ref="#[payload]"/>
-        </sfdc:upsert>
-		
+        </sfdc:upsert>       
+		<logger message="SalesForce account updated: #[payload]" level="INFO" category="SyncEmailContactsToSalesForce" doc:name="Logger"/>
 	</flow>
 </mule>
