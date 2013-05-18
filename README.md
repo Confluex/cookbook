@@ -1,3 +1,3 @@
-# Excuse the Dust - Under Construction
+# Excuse the Dust 
 
-Come back soon for examples which demonstrate how to solve integration problems with Mule ESB.
+We're actively working on these examples. Please come back soon for examples which demonstrate how to solve integration problems.

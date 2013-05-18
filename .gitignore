@@ -4,6 +4,7 @@
 *.ipr
 *.iws
 *.log
+*.mflow
 target
 bin
 classes
