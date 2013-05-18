@@ -120,75 +120,77 @@
 				</executions>
 			</plugin>
 			<plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>exec-maven-plugin</artifactId>
-		        <version>1.2.1</version>
-		        <executions>
-		          <execution>
-		            <goals>
-		              <goal>java</goal>
-		            </goals>
-		          </execution>
-		        </executions>
-		        <configuration>
-		          <mainClass>org.mule.MuleServer</mainClass>
-		          <arguments>
-		            <argument>-config</argument>
-					<argument>src/main/app/mule-config.xml</argument>
-		          </arguments>
-		        <classpathScope>compile</classpathScope>
-		        </configuration>
-		      </plugin>
-		      
-		      <!--Install clover-plugins-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>copy-clover-plugins</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <overWriteReleases>true</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                            <stripVersion>true</stripVersion>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>org.mule.MuleServer</mainClass>
+					<arguments>
+						<argument>-config</argument>
+						<argument>src/main/app/mule-config.xml</argument>
+					</arguments>
+					<classpathScope>compile</classpathScope>
+				</configuration>
+			</plugin>
 
-                            <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.cloveretl</groupId>
-                                    <artifactId>cloveretl-engine</artifactId>
-                                    <version>${mule.version}</version>
-                                    <type>zip</type>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <configuration>
-                            <tasks>
-                                <!-- Using an ant task to deflate cloveretl-engine.zip -->
-                                <unzip src="${project.build.testOutputDirectory}/cloveretl-engine.zip" dest="${project.build.testOutputDirectory}" />
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<!--Install clover-plugins -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy-clover-plugins</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<stripVersion>true</stripVersion>
+
+							<outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.cloveretl</groupId>
+									<artifactId>cloveretl-engine</artifactId>
+									<version>${mule.version}</version>
+									<type>zip</type>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<configuration>
+							<tasks>
+								<!-- Using an ant task to deflate cloveretl-engine.zip -->
+								<unzip
+									src="${project.build.testOutputDirectory}/cloveretl-engine.zip"
+									dest="${project.build.testOutputDirectory}" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -276,36 +278,20 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.mulesoft.muleesb.modules</groupId>
-			<artifactId>mule-module-boot-ee</artifactId>
-			<version>${mule.version}</version>
-			<scope>provided</scope>
-	    </dependency>
-		<!-- Xml configuration -->
-		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-module-spring-config</artifactId>
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-        	<groupId>com.mulesoft.muleesb</groupId>
-			<artifactId>mule-core-ee</artifactId>
-			<version>${mule.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.mulesoft.muleesb.modules</groupId>
-			<artifactId>mule-module-data-mapper</artifactId>
-			<version>${mule.version}</version>
-		</dependency>
-		<!-- Xml configuration -->
-		<dependency>
-			<groupId>com.mulesoft.muleesb.modules</groupId>
-			<artifactId>mule-module-spring-config-ee</artifactId>
-			<version>${mule.version}</version>
-			<scope>provided</scope>
-		</dependency>
+		<!-- no EE for this example <dependency> <groupId>com.mulesoft.muleesb.modules</groupId> 
+			<artifactId>mule-module-boot-ee</artifactId> <version>${mule.version}</version> 
+			<scope>provided</scope> </dependency> <dependency> <groupId>com.mulesoft.muleesb</groupId> 
+			<artifactId>mule-core-ee</artifactId> <version>${mule.version}</version> 
+			<scope>provided</scope> </dependency> <dependency> <groupId>com.mulesoft.muleesb.modules</groupId> 
+			<artifactId>mule-module-data-mapper</artifactId> <version>${mule.version}</version> 
+			</dependency <dependency> <groupId>com.mulesoft.muleesb.modules</groupId> 
+			<artifactId>mule-module-spring-config-ee</artifactId> <version>${mule.version}</version> 
+			<scope>provided</scope> </dependency> -->
 
 		<!-- Mule Transports -->
 		<dependency>
@@ -338,7 +324,7 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Mule Modules -->
 		<dependency>
 			<groupId>org.mule.modules</groupId>
@@ -418,22 +404,22 @@
 			<name>Codehaus Snapshots</name>
 			<url>http://snapshots.repository.codehaus.org/</url>
 		</repository>
-        <repository>
-            <id>codehaus-releases</id>
-            <name>CodeHaus Releases</name>
-            <url>http://repository.codehaus.org/</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-          <id>mulesoft-release</id>
-          <name>mulesoft release repository</name>
-          <layout>default</layout>
-          <url>https://repository.mulesoft.org/releases/</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository>
-      </pluginRepositories>
+		<repository>
+			<id>codehaus-releases</id>
+			<name>CodeHaus Releases</name>
+			<url>http://repository.codehaus.org/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>mulesoft-release</id>
+			<name>mulesoft release repository</name>
+			<layout>default</layout>
+			<url>https://repository.mulesoft.org/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 </project>
