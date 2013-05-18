@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.confluex.cookbook</groupId>
@@ -51,7 +50,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore/>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -68,7 +67,13 @@
 				<extensions>true</extensions>
 				<configuration>
 					<copyToAppsDirectory>true</copyToAppsDirectory>
-				</configuration>
+				<inclusions>
+<inclusion>
+<groupId>org.mule.modules</groupId>
+<artifactId>mule-module-sfdc</artifactId>
+</inclusion>
+</inclusions>
+</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -180,9 +185,7 @@
 						<configuration>
 							<tasks>
 								<!-- Using an ant task to deflate cloveretl-engine.zip -->
-								<unzip
-									src="${project.build.testOutputDirectory}/cloveretl-engine.zip"
-									dest="${project.build.testOutputDirectory}" />
+								<unzip dest="${project.build.testOutputDirectory}" src="${project.build.testOutputDirectory}/cloveretl-engine.zip"/>
 							</tasks>
 						</configuration>
 						<goals>
@@ -382,7 +385,18 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+	<dependency>
+<groupId>org.mule.transports</groupId>
+<artifactId>mule-transport-email</artifactId>
+<version>${mule.version}</version>
+<scope>provided</scope>
+</dependency>
+<dependency>
+<groupId>org.mule.modules</groupId>
+<artifactId>mule-module-sfdc</artifactId>
+<version>5.3.1</version>
+</dependency>
+</dependencies>
 
 	<repositories>
 		<repository>
