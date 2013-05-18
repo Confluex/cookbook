@@ -25,6 +25,7 @@ public class EmailToSalesForceContactsListTest {
 		assertEquals("Cantrell", contact.get(FIELD_LAST_NAME));
 		assertEquals("mike.humansonly@devnull.org", contact.get(FIELD_EMAIL));
 		assertEquals("mike.humansonly@devnull.org", contact.get(FIELD_EXTERNAL_ID));
+		assertEquals(VALUE_LEAD_SOURCE, contact.get(FIELD_LEAD_SOURCE));
 	}
 	
 }

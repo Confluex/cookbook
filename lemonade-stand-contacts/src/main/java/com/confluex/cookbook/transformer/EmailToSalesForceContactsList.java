@@ -21,6 +21,10 @@ public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 	public static final String FIELD_LAST_NAME = "LastName";
 	public static final String FIELD_EMAIL = "Email";
 	public static final String FIELD_EXTERNAL_ID = "OriginalEmail__c";
+	public static final String FIELD_LEAD_SOURCE = "LeadSource";
+	public static final String FIELD_DESCRIPTION = "Description";
+	
+	public static final String VALUE_LEAD_SOURCE = "Lemonade Customer";
 	
 	EmailToSalesForceContactsList() {
 		setReturnDataType(DataTypeFactory.create(List.class));
@@ -30,7 +34,11 @@ public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 	public Object transformMessage(MuleMessage message, String outputEncoding)
 			throws TransformerException {
 		try {
-			return createContactsFromEmail((String) message.getInboundProperty("toAddresses"));
+			List<Map<String, String>> contacts = createContactsFromEmail((String) message.getInboundProperty("toAddresses"));
+			for (Map<String, String> contact : contacts) {
+				contact.put(FIELD_DESCRIPTION, message.getPayloadAsString());
+			}
+			return contacts;
 		} catch (Exception e) {
 			throw new TransformerException(this, e);
 		}
@@ -44,6 +52,7 @@ public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 		contact.put(FIELD_FIRST_NAME, parseFirstName(name));
 		contact.put(FIELD_LAST_NAME, parseLastName(name));
 		contact.put(FIELD_EMAIL, address.getAddress());
+		contact.put(FIELD_LEAD_SOURCE, VALUE_LEAD_SOURCE);
 		contact.put(FIELD_EXTERNAL_ID, address.getAddress());
 		contacts.add(contact);
 
