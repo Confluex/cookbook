@@ -13,25 +13,32 @@ In this example, we'll be using Mule to connect to Timmy's gmail acccount. He ge
 
 *Gmail to SalesForce Flow Diagram*
 
-![Gmail to SalesForce Flow Diagram](src/main/docs/flow?raw=true)
+![Gmail to SalesForce Flow Diagram](src/main/docs/flow.jpg?raw=true)
 
-*SalesForce endpoint Dialog*
+*SalesForce Endpoint Dialog*
 
-![Gmail to Salesforce Flow Diagram](src/main/docs/flow?raw=true)
+![Gmail to Salesforce Flow Diagram](src/main/docs/contacts-upsert-dialog.jpg?raw=true)
 
 # First some SalesForce Setup
 
 We'll be using the Mule Salesforce Connector and using the upsert function (creates a new record or updates an existing). But first, we need to correlate identity between the GMail account and the SalesForce account. This is called an ExternalID field. We'll use the email address.
 
-In order to do this, you'll have to create an ExternalID field inside of SalesForce
+In order to do this, you'll have to create an ExternalID field inside of SalesForce:
+
+*Find the Setup Menu under your Account Menu*
 
 ![Setup Menu](src/main/docs/contacts-external-id-1.jpg?raw=true)
+
+*Select the 'Customize/Contacts/Fields' option from the left nav*
+
 ![Contact Fields](src/main/docs/contacts-external-id-2.jpg?raw=true)
-![Custom Field](src/main/docs/contacts-external-id-2.jpg?raw=true)
+
+*Add the Custom Field*
+![Custom Field](src/main/docs/contacts-external-id-3.jpg?raw=true)
 
 Once we have the new field in place, we're ready to start sending emails.
 
-# Sending the Emails
+# Sending the Emails and Verifying the Result
 
 To emulate Timmy's fancy credit card app, we'll just have to send an email manually. Go ahead and just send an email and BCC the account which is being monitored.
 
@@ -39,5 +46,5 @@ To emulate Timmy's fancy credit card app, we'll just have to send an email manua
 
 The flow should pick it up and create or update the SalesForce contact:
 
-![SalesForce Results](src/main/docs/update-result![Custom Field](src/main/docs/send-email.jpg?raw=true)
+![SalesForce Results](src/main/docs/update-result.jpg?raw=true)
 
