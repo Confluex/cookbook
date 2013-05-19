@@ -55,7 +55,7 @@ Once we have the new field in place, ensure that Mule has the correct endpoint s
 
 # A Word About Payloads, Filters and Transformers
 
-When the message arrives from Gmail, it has useful variables in the message headers. Here are just a few inbound properties which we can use to build transform our payload for SalesForce:
+When the message arrives from Gmail, it has useful variables in the message headers. Here are just a few inbound properties which we can use to transform our payload for SalesForce:
 
 ```
     bccAddresses=Mule Test <mule.test@acme.com>
