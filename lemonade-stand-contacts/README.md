@@ -61,8 +61,8 @@ When the message arrives from Gmail, it has useful variables in the message head
     bccAddresses=Mule Test <mule.test@acme.com>
     ccAddresses=
     contentType=multipart/alternative; boundary=089e013cb962bdb55b04dd09ca19
-    fromAddress=Mike Cantrell <timmy@awesomelemons.com>
-    replyToAddresses=Mike Cantrell <mtimmy@awesomelemons.com>
+    fromAddress=Timmy Smith <timmy@awesomelemons.com>
+    replyToAddresses=Timmy Smith <mtimmy@awesomelemons.com>
     sentDate=Sat May 18 22:27:12 CDT 2013
     subject=Receipt
     toAddresses=Bill Murray <bmurray@acme.com>
