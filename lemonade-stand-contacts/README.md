@@ -20,7 +20,7 @@ In this example, we'll be using Mule to connect to Timmy's gmail acccount. He ge
 
 # First Some SalesForce Setup
 
-We'll be using the Mule Salesforce Connector and using the upsert function (creates a new record or updates an existing). But first, we need to correlate identity between the GMail account and the SalesForce account. This is called an ExternalID field. We'll use the email address.
+We'll be using the [Mule Salesforce Connector's](http://www.mulesoft.org/extensions/salesforce-cloud-connector) *Upsert* function (creates a new record or updates an existing). But first, we need to correlate identity between the GMail account and the SalesForce account. This is called an ExternalID field. We'll use the email address.
 
 In order to do this, you'll have to create an ExternalID field inside of SalesForce. This can be done in just a few, simple steps:
 
