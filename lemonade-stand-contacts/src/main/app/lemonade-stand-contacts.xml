@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns:imaps="http://www.mulesoft.org/schema/mule/imaps"
-	xmlns:context="http://www.springframework.org/schema/context"
+<mule xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc"
+	xmlns:imaps="http://www.mulesoft.org/schema/mule/imaps" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.4.0"
@@ -13,29 +13,39 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
 http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/5.0/mule-sfdc.xsd">
 
-	<!--  you'll need to create your own conf.properties in src/main/resources to match your environment -->
+	<!-- you'll need to create your own conf.properties in src/main/resources 
+		to match your environment -->
 	<context:property-placeholder location="classpath:conf.properties" />
-	
+
 	<spring:beans>
-		<spring:bean name="emailToSalesForceContactList" class="com.confluex.cookbook.transformer.EmailToSalesForceContactsList"/>
+		<spring:bean name="emailToSalesForceContactList"
+			class="com.confluex.cookbook.transformer.EmailToSalesForceContactsList" />
 	</spring:beans>
-	
-	<imaps:connector name="imapsConnector" checkFrequency="5000" deleteReadMessages="false" doc:name="IMAP"/>
-    <sfdc:config name="Salesforce" username="${sf.user}" password="${sf.password}" securityToken="${sf.token}" doc:name="Salesforce">
-        <sfdc:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
-        <reconnect-forever/>
-    </sfdc:config>
-	
+
+	<imaps:connector name="imapsConnector" checkFrequency="5000"
+		deleteReadMessages="false" doc:name="IMAP" />
+	<sfdc:config name="Salesforce" username="${sf.user}"
+		password="${sf.password}" securityToken="${sf.token}" doc:name="Salesforce">
+		<sfdc:connection-pooling-profile
+			initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW" />
+		<reconnect-forever />
+	</sfdc:config>
+
 	<flow name="sync-email-contacts-to-salesforce" doc:name="sync-email-contacts-to-salesforce">
 		<imaps:inbound-endpoint host="${imap.host}"
 			port="${imap.port}" user="${imap.user}" password="${imap.password}"
 			responseTimeout="10000" doc:name="IMAP" />
-        <expression-filter expression="#[message.inboundProperties.subject == &quot;Receipt&quot;]" doc:name="Filter non-receipts"/>
-        <transformer ref="emailToSalesForceContactList" doc:name="Convert to Customer"/>
-		<logger message="Upsert contacts: #[payload]" level="INFO" category="SyncEmailContactsToSalesForce" doc:name="Log Contact Info"/>
- 		<sfdc:upsert config-ref="Salesforce"  doc:name="Salesforce" externalIdFieldName="OriginalEmail__c" type="Contact"> 			
-            <sfdc:objects ref="#[payload]"/>
-        </sfdc:upsert>       
-		<logger message="SalesForce account updated: #[payload]" level="INFO" category="SyncEmailContactsToSalesForce" doc:name="Log Status"/>
+		<expression-filter
+			expression="#[message.inboundProperties.subject == &quot;Receipt&quot;]"
+			doc:name="Filter non-receipts" />
+		<transformer ref="emailToSalesForceContactList" doc:name="Convert to Customer" />
+		<logger message="Upsert contacts: #[payload]" level="INFO"
+			category="SyncEmailContactsToSalesForce" doc:name="Log Contact Info" />
+		<sfdc:upsert config-ref="Salesforce" doc:name="Salesforce"
+			externalIdFieldName="OriginalEmail__c" type="Contact">
+			<sfdc:objects ref="#[payload]" />
+		</sfdc:upsert>
+		<logger message="SalesForce account updated: #[payload]" level="INFO"
+			category="SyncEmailContactsToSalesForce" doc:name="Log Status" />
 	</flow>
 </mule>
