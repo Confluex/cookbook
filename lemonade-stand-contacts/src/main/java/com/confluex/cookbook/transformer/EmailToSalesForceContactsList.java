@@ -18,8 +18,6 @@ import org.mule.transformer.types.DataTypeFactory;
 /**
  * Custom transformer which will read the inbound message properties from an email
  * message and convert it into a list of maps (contacts) for SalesForce.
- * 
- * @author mcantrell
  */
 public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 
