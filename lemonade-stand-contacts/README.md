@@ -157,6 +157,24 @@ The flow should pick it up and create or update the SalesForce contact:
 
 ![SalesForce Results](src/main/docs/upsert-result.jpg?raw=true)
 
+# Configuration Settings
+
+The flow includes a reference to a conf.properties file which is not included with this project (we can't be handing out our gmail our salesforce credentials now can we?). In order to run the project, you'll need to create your own:
+
+src/main/resources/conf.properties:
+
+```
+imap.user=username%40mydomain.com
+imap.password=1f0rg0t1t!
+imap.host=imap.gmail.com
+imap.port=993
+
+sf.user=username@mydomain.com
+sf.password=1f0rg0t1tT00!
+sf.url=https://login.salesforce.com/services/Soap/u/25.0
+sf.token=get this from your SF account settings
+```
+
 # Example Provided By Confluex
 
 For more information on Confluex and how we can help your organization overcome your integration challenges, please visit our website at [http://www.confluex.com](http://www.confluex.com).
