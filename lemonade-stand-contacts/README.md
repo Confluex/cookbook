@@ -36,12 +36,114 @@ In order to do this, you'll have to create an ExternalID field inside of SalesFo
 **#3 - Add the Custom Field**
 ![Custom Field](src/main/docs/contacts-external-id-3.jpg?raw=true)
 
+# Setting up the SalesForce Endpoint
+
 Once we have the new field in place, ensure that Mule has the correct endpoint settings:
 
  - The sObject type should be set to Contact
  - The External ID field should match your configured field
 
 ![SalesForce Endpoint Dialog](src/main/docs/contacts-upsert-dialog.jpg?raw=true)
+
+*XML Source*
+
+```xml
+<sfdc:upsert config-ref="Salesforce"  doc:name="Salesforce" externalIdFieldName="OriginalEmail__c" type="Contact"> 			
+    <sfdc:objects ref="#[payload]"/>
+</sfdc:upsert>
+```
+
+# A Word About Payloads, Filters and Transformers
+
+When the message arrives from Gmail, it has useful variables in the message headers. Here are just a few inbound properties which we can use to build transform our payload for SalesForce:
+
+```
+    bccAddresses=Mule Test <mule.test@acme.com>
+    ccAddresses=
+    contentType=multipart/alternative; boundary=089e013cb962bdb55b04dd09ca19
+    fromAddress=Mike Cantrell <timmy@awesomelemons.com>
+    replyToAddresses=Mike Cantrell <mtimmy@awesomelemons.com>
+    sentDate=Sat May 18 22:27:12 CDT 2013
+    subject=Receipt
+    toAddresses=Bill Murray <bmurray@acme.com>
+```
+
+SalesForce Upserts expects a List<Map> payload with the maps containing values for the fields you wish to update. In order to convert the payload, we've created a simple transformer by extending Mule's AbstractMessageTransformer (extend AbstractTransformer if you only want the payload).
+	
+```java
+/**
+ * Custom transformer which will read the inbound message properties from an email
+ * message and convert it into a list of maps (contacts) for SalesForce.
+ */
+public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
+
+	public static final String FIELD_FIRST_NAME = "FirstName";
+	public static final String FIELD_LAST_NAME = "LastName";
+	public static final String FIELD_EMAIL = "Email";
+	public static final String FIELD_EXTERNAL_ID = "OriginalEmail__c";
+	public static final String FIELD_LEAD_SOURCE = "LeadSource";
+	public static final String FIELD_DESCRIPTION = "Description";
+	
+	public static final String VALUE_LEAD_SOURCE = "Lemonade Customer";
+	
+	EmailToSalesForceContactsList() {
+		setReturnDataType(DataTypeFactory.create(List.class));
+	}
+
+	public Object transformMessage(MuleMessage message, String outputEncoding)
+			throws TransformerException {
+		try {
+			List<Map<String, String>> contacts = createContactsFromEmail((String) message.getInboundProperty("toAddresses"));
+			for (Map<String, String> contact : contacts) {
+				contact.put(FIELD_DESCRIPTION, message.getPayloadAsString());
+			}
+			return contacts;
+		} catch (Exception e) {
+			throw new TransformerException(this, e);
+		}
+	}
+
+	/**
+	 * Create the customer from the message meta data
+	 */
+	protected List<Map<String, String>> createContactsFromEmail(String email) throws AddressException {
+		InternetAddress address = new InternetAddress(email);
+		List<Map<String, String>> contacts = new ArrayList<Map<String, String>>();
+		Map<String, String> contact = new HashMap<String, String>();
+		String name = address.getPersonal();
+		contact.put(FIELD_FIRST_NAME, parseFirstName(name));
+		contact.put(FIELD_LAST_NAME, parseLastName(name));
+		contact.put(FIELD_EMAIL, address.getAddress());
+		contact.put(FIELD_LEAD_SOURCE, VALUE_LEAD_SOURCE);
+		contact.put(FIELD_EXTERNAL_ID, address.getAddress());
+		contacts.add(contact);
+
+		return contacts;
+	}
+
+	/**
+	 * Split the name up and use all of the fields except the last. 
+	 * This isn't really very reliable but it gets the point across.
+	 */
+	protected String parseFirstName(String name) {
+		String[] values = name.split("\\W+");
+		Object[] firstNameElements = ArrayUtils.subarray(values, 0,
+				values.length - 1);
+		return StringUtils.join(firstNameElements);
+	}
+
+	/**
+	 * Split the name and use the last field. Again, not really too reliable
+	 * but it's a demo :-)
+	 */
+	protected String parseLastName(String name) {
+		String[] values = name.split("\\W+");
+		return values[values.length - 1];
+	}
+}
+```	
+
+When it comes out the other end, we have our List of Maps to send to SalesForce!
 
 # Sending the Email
 
