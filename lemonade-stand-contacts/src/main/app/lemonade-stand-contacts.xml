@@ -29,11 +29,12 @@ http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfd
 		<imaps:inbound-endpoint host="${imap.host}"
 			port="${imap.port}" user="${imap.user}" password="${imap.password}"
 			responseTimeout="10000" doc:name="IMAP" />
-        <transformer ref="emailToSalesForceContactList" doc:name="Email to SalesForce Contact List"/>
-		<logger message="Upsert contacts: #[payload]" level="INFO" category="SyncEmailContactsToSalesForce" doc:name="Logger"/>
+        <expression-filter expression="#[message.inboundProperties.subject == &quot;Receipt&quot;]" doc:name="Filter non-receipts"/>
+        <transformer ref="emailToSalesForceContactList" doc:name="Convert to Customer"/>
+		<logger message="Upsert contacts: #[payload]" level="INFO" category="SyncEmailContactsToSalesForce" doc:name="Log Contact Info"/>
  		<sfdc:upsert config-ref="Salesforce"  doc:name="Salesforce" externalIdFieldName="OriginalEmail__c" type="Contact"> 			
             <sfdc:objects ref="#[payload]"/>
         </sfdc:upsert>       
-		<logger message="SalesForce account updated: #[payload]" level="INFO" category="SyncEmailContactsToSalesForce" doc:name="Logger"/>
+		<logger message="SalesForce account updated: #[payload]" level="INFO" category="SyncEmailContactsToSalesForce" doc:name="Log Status"/>
 	</flow>
 </mule>
