@@ -15,6 +15,12 @@ import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractMessageTransformer;
 import org.mule.transformer.types.DataTypeFactory;
 
+/**
+ * Custom transformer which will read the inbound message properties from an email
+ * message and convert it into a list of maps (contacts) for SalesForce.
+ * 
+ * @author mcantrell
+ */
 public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 
 	public static final String FIELD_FIRST_NAME = "FirstName";
@@ -44,6 +50,9 @@ public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 		}
 	}
 
+	/**
+	 * Create the customer from the message meta data
+	 */
 	protected List<Map<String, String>> createContactsFromEmail(String email) throws AddressException {
 		InternetAddress address = new InternetAddress(email);
 		List<Map<String, String>> contacts = new ArrayList<Map<String, String>>();
@@ -59,6 +68,10 @@ public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 		return contacts;
 	}
 
+	/**
+	 * Split the name up and use all of the fields except the last. 
+	 * This isn't really very reliable but it gets the point across.
+	 */
 	protected String parseFirstName(String name) {
 		String[] values = name.split("\\W+");
 		Object[] firstNameElements = ArrayUtils.subarray(values, 0,
@@ -66,6 +79,10 @@ public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 		return StringUtils.join(firstNameElements);
 	}
 
+	/**
+	 * Split the name and use the last field. Again, not really too reliable
+	 * but it's a demo :-)
+	 */
 	protected String parseLastName(String name) {
 		String[] values = name.split("\\W+");
 		return values[values.length - 1];
