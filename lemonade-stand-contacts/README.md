@@ -18,28 +18,30 @@ In this example, we'll be using Mule to connect to Timmy's gmail acccount. He ge
 [View the Source](src/main/app/lemonade-stand-contacts.xml)
 
 
-# First some SalesForce Setup
+# First Some SalesForce Setup
 
 We'll be using the Mule Salesforce Connector and using the upsert function (creates a new record or updates an existing). But first, we need to correlate identity between the GMail account and the SalesForce account. This is called an ExternalID field. We'll use the email address.
 
-In order to do this, you'll have to create an ExternalID field inside of SalesForce:
+In order to do this, you'll have to create an ExternalID field inside of SalesForce. This can be done in just a few, simple steps:
 
-*Setup the SalesForce Endpoint*
 
-![Gmail to Salesforce Flow Diagram](src/main/docs/contacts-upsert-dialog.jpg?raw=true)
-
-*Find the Setup Menu under your Account Menu*
+**#1 - Find the Setup Menu under your Account Menu**
 
 ![Setup Menu](src/main/docs/contacts-external-id-1.jpg?raw=true)
 
-*Select the 'Customize/Contacts/Fields' option from the left nav*
+**#2 - Select the 'Customize/Contacts/Fields' option from the left nav**
 
 ![Contact Fields](src/main/docs/contacts-external-id-2.jpg?raw=true)
 
-*Add the Custom Field*
+**#3 - Add the Custom Field**
 ![Custom Field](src/main/docs/contacts-external-id-3.jpg?raw=true)
 
-Once we have the new field in place, we're ready to start sending emails.
+Once we have the new field in place, ensure that Mule has the correct endpoint settings:
+
+ - The sObject type should be set to Contact
+ - The External ID field should match your configured field
+
+![SalesForce Endpoint Dialog](src/main/docs/contacts-upsert-dialog.jpg?raw=true)
 
 # Sending the Emails and Verifying the Result
 
@@ -49,5 +51,5 @@ To emulate Timmy's fancy credit card app, we'll just have to send an email manua
 
 The flow should pick it up and create or update the SalesForce contact:
 
-![SalesForce Results](src/main/docs/update-result.jpg?raw=true)
+![SalesForce Results](src/main/docs/upsert-result.jpg?raw=true)
 
