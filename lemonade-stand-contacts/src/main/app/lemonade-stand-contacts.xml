@@ -13,6 +13,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
 http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/5.0/mule-sfdc.xsd">
 
+	<!--  you'll need to create your own conf.properties in src/main/resources to match your environment -->
 	<context:property-placeholder location="classpath:conf.properties" />
 	
 	<spring:beans>
