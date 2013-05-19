@@ -43,13 +43,18 @@ Once we have the new field in place, ensure that Mule has the correct endpoint s
 
 ![SalesForce Endpoint Dialog](src/main/docs/contacts-upsert-dialog.jpg?raw=true)
 
-# Sending the Emails and Verifying the Result
+# Sending the Email
 
 To emulate Timmy's fancy credit card app, we'll just have to send an email manually. Go ahead and just send an email and BCC the account which is being monitored.
 
 ![Sending an test email](src/main/docs/send-email.jpg?raw=true)
 
+# Verify the Update in SalesForce
+
 The flow should pick it up and create or update the SalesForce contact:
 
 ![SalesForce Results](src/main/docs/upsert-result.jpg?raw=true)
 
+# Example Provided By Confluex
+
+For more information on Confluex and how we can help your organization overcome your integration challenges, please visit our website at [http://www.confluex.com](http://www.confluex.com).
