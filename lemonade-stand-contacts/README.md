@@ -11,7 +11,7 @@ In this example, we'll be using Mule to connect to Timmy's gmail acccount. He ge
  - We'll also categorize the contact for him by hard coding the LeadSource field as Lemonade Customer
  - To help him remember their last order, we'll use the email body and insert it into the Contact's description
 
-*Gmail to SalesForce Flow Diagram*
+**Gmail to SalesForce Flow Diagram**
 
 ![Gmail to SalesForce Flow Diagram](src/main/docs/flow.jpg?raw=true)
 
