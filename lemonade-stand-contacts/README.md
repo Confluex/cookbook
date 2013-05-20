@@ -68,7 +68,7 @@ When the message arrives from Gmail, it has useful variables in the message head
     toAddresses=Bill Murray <bmurray@acme.com>
 ```
 
-SalesForce Upserts expects a List&lt;Map%gt; payload containing values for the fields you wish to update. In order to convert the payload, we've created a simple transformer by extending Mule's AbstractMessageTransformer (extend AbstractTransformer if you only want the payload).
+SalesForce Upserts expects a List&lt;Map&gt; payload containing values for the fields you wish to update. In order to convert the payload, we've created a simple transformer by extending Mule's AbstractMessageTransformer (extend AbstractTransformer if you only want the payload).
 	
 ```java
 /**
