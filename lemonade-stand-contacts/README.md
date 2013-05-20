@@ -68,12 +68,16 @@ When the message arrives from Gmail, it has useful variables in the message head
     toAddresses=Bill Murray <bmurray@acme.com>
 ```
 
-SalesForce Upserts expects a List<Map> payload with the maps containing values for the fields you wish to update. In order to convert the payload, we've created a simple transformer by extending Mule's AbstractMessageTransformer (extend AbstractTransformer if you only want the payload).
+SalesForce Upserts expects a List&lt;Map%gt; payload containing values for the fields you wish to update. In order to convert the payload, we've created a simple transformer by extending Mule's AbstractMessageTransformer (extend AbstractTransformer if you only want the payload).
 	
 ```java
 /**
  * Custom transformer which will read the inbound message properties from an email
  * message and convert it into a list of maps (contacts) for SalesForce.
+ * <br/><br/>
+ * Technically, there could be multiple contacts listed on the To: email address line 
+ * but we're just going to do the simple thing here and treat it as a single contact
+ * for the sake of this example.
  */
 public class EmailToSalesForceContactsList extends AbstractMessageTransformer {
 
