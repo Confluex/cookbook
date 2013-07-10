@@ -30,6 +30,7 @@
         <log4j.version>1.2.16</log4j.version>
         <sl4fj.version>1.6.1</sl4fj.version>
         <aspectj.version>1.6.11</aspectj.version>
+        <commons.pool.version>1.5.3</commons.pool.version>
         <!-- external dependency versions -->
         <activemq.version>5.8.0</activemq.version>
     </properties>
@@ -400,13 +401,6 @@
                 <version>${spring.security.version}</version>
                 <scope>${container.scope}</scope>
             </dependency>
-            <!-- Mock LDAP -->
-            <dependency>
-                <groupId>org.apache.directory.server</groupId>
-                <artifactId>apacheds-all</artifactId>
-                <version>1.5.5</version>
-                <scope>test</scope>
-            </dependency>
             <!-- Logging -->
             <dependency>
                 <groupId>log4j</groupId>
@@ -466,6 +460,12 @@
                 <artifactId>geronimo-spec-j2ee-management</artifactId>
                 <version>1.0-rc4</version>
                 <scope>provided</scope>
+            </dependency>
+            <!-- Database -->
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>1.4</version>
             </dependency>
             <!-- Test -->
             <dependency>

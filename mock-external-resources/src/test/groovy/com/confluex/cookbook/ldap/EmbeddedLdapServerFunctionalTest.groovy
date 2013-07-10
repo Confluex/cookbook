@@ -7,7 +7,7 @@ class EmbeddedLdapServerFunctionalTest extends FunctionalTestCase {
 
     @Override
     protected String getConfigResources() {
-        return "ldap-server-context.xml, ldap-config.xml"
+        return "ldap/ldap-server-context.xml, ldap-config.xml"
     }
 
 
