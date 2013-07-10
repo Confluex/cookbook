@@ -11,6 +11,12 @@
     <artifactId>mock-ldap-test</artifactId>
     <dependencies>
         <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+
+        <!-- mule modules and transports -->
+        <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-ldap</artifactId>
         </dependency>
@@ -18,10 +24,8 @@
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-vm</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-        </dependency>
+
+        <!-- testing -->
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-client</artifactId>
@@ -30,6 +34,8 @@
             <groupId>org.mule.tests</groupId>
             <artifactId>mule-tests-functional</artifactId>
         </dependency>
+
+        <!-- mock ldap server -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-ldap</artifactId>
