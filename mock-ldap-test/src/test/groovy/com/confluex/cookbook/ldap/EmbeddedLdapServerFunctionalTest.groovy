@@ -1,6 +1,5 @@
 package com.confluex.cookbook.ldap
 
-import org.junit.BeforeClass
 import org.junit.Test
 import org.mule.tck.junit4.FunctionalTestCase
 
