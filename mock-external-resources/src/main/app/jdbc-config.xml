@@ -30,12 +30,12 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
         </spring:bean>
         <spring:bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
             <spring:property name="dataSource" ref="dataSource"/>
-            <spring:property name="changeLog" value="classpath:/jdbc/liquibase/changelog.xml"/>
+            <spring:property name="changeLog" value="classpath:/jdbc/changelog.xml"/>
         </spring:bean>
         <spring:bean id="userByUserNameQuery" class="org.apache.commons.io.IOUtils" factory-method="toString">
             <spring:constructor-arg type="java.io.InputStream">
                 <spring:bean class="java.io.FileInputStream" destroy-method="close">
-                    <spring:constructor-arg type="java.io.File" value="classpath:/jdbc/query/userByName.sql"/>
+                    <spring:constructor-arg type="java.io.File" value="classpath:/jdbc/userByName.sql"/>
                 </spring:bean>
             </spring:constructor-arg>
         </spring:bean>

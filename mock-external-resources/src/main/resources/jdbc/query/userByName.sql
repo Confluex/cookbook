@@ -1,1 +1,0 @@
-select * from USER where USER_NAME in (#[payload])

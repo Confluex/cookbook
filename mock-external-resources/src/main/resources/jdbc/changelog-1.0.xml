@@ -3,7 +3,11 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-    <changeSet author="mcantrell" id="mock-external-resource-1.0">
+    <changeSet author="mcantrell" id="ddl-1.0">
+        <!-- only load test data if using the h2 drive (dev) -->
+        <preConditions onFail="CONTINUE">
+            <dbms type="h2"/>
+        </preConditions>
         <createTable tableName="USER">
             <column name="USER_NAME" type="VARCHAR(32)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER_NAME"/>
@@ -15,6 +19,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <loadData tableName="USER" file="/jdbc/Users.csv"/>
     </changeSet>
-
 </databaseChangeLog>
