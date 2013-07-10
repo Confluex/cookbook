@@ -1,1 +1,1 @@
-select * from USER where USER_NAME = #[payload.users]
+select * from USER where USER_NAME= #[payload.userName]
