@@ -24,17 +24,18 @@
         <mule.ee>false</mule.ee>
         <gmaven.version>1.3</gmaven.version>
         <groovy.version>1.8.6</groovy.version>
-        <spring.version>3.1.1.RELEASE</spring.version>
+        <spring.version>3.2.1.RELEASE</spring.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <jersey.version>1.6</jersey.version>
         <log4j.version>1.2.16</log4j.version>
         <sl4fj.version>1.6.1</sl4fj.version>
-        <aspectj.version>1.6.8</aspectj.version>
+        <aspectj.version>1.6.11</aspectj.version>
         <!-- external dependency versions -->
         <activemq.version>5.8.0</activemq.version>
     </properties>
     <modules>
         <module>lemonade-stand-contacts</module>
+        <module>mock-ldap-test</module>
     </modules>
     <dependencyManagement>
         <dependencies>
