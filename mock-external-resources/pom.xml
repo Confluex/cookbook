@@ -8,7 +8,7 @@
         <artifactId>mule-cookbook</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>mock-ldap-test</artifactId>
+    <artifactId>mock-external-resources</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

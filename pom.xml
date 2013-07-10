@@ -35,7 +35,7 @@
     </properties>
     <modules>
         <module>lemonade-stand-contacts</module>
-        <module>mock-ldap-test</module>
+        <module>mock-external-resources</module>
     </modules>
     <dependencyManagement>
         <dependencies>
