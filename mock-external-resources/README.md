@@ -12,6 +12,7 @@ __Table of Contents__
     - [DDL and Mock Data](#ddl-and-mock-data)
     - [Dependencies](#dependencies)
 
+doctoc .
 
 # JDBC
 
