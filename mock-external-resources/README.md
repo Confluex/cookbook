@@ -114,7 +114,7 @@ jdbc.driver=org.h2.Driver
 jdbc.validationQuery=select 1
 ```
 
-_Put your non-embedded config.properties somewhere on the classpath for the server (e.g. MULE\_HOME/conf or in src/main/resources)_
+> Put your non-embedded config.properties somewhere on the classpath for the server (e.g. MULE\_HOME/conf or in src/main/resources)
 
 Notice that we've made use of the h2 features to run a script: __ddl.sql__ and set the compatibility mode to __MYSQL__
 _(to help us emulate our production environment better)_.
