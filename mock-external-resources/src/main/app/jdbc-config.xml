@@ -30,7 +30,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
             <spring:property name="logAbandoned" value="true"/>
         </spring:bean>
 
-        <!-- named queries externalized into files from the casspath -->
+        <!-- named queries externalized into files from the classpath -->
         <spring:bean id="userByUserNameQuery" class="org.apache.commons.io.IOUtils" factory-method="toString">
             <spring:constructor-arg type="java.io.InputStream">
                 <spring:bean class="java.io.FileInputStream" destroy-method="close">
