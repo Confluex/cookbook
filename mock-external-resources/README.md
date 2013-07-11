@@ -30,7 +30,7 @@ The database we've selected is H2. Why H2?
 - Has configurable database [compatability modes](http://www.h2database.com/html/grammar.html#set_mode) to emulate
 non-ansi SQL grammar of other databases
 - Clear and [throrough documentation](http://www.h2database.com/html/grammar.html)
-- The ability to run SQL scripts on startup
+- The ability to [run SQL scripts](http://www.h2database.com/html/grammar.html#runscript) on startup
 - [CSV bulk loading](http://www.h2database.com/html/tutorial.html#csv) of data
 
 Feel free to use whatever embedded suites your needs (derby, hsql, etc.). This is just what we've chosen for
