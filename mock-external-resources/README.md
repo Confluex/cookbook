@@ -8,6 +8,9 @@ __Table of Contents__
 
 - [JDBC](#jdbc)
     - [H2 Database](#h2-database)
+    - [Configuration](#configuration)
+    - [DDL and Mock Data](#ddl-and-mock-data)
+    - [Dependencies](#dependencies)
 
 
 # JDBC
