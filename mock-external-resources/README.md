@@ -15,7 +15,7 @@ environment can cause several problems:
 - Ensuring the database is in the correct state for your tests (predictable data)
 - Cleaning up your changes for the next set of tests
 
-There are various ways of handling these problems. For instance, by using spring and it's transaction managed test
+There are various ways of handling these problems. For instance, by using spring and its transaction managed test
 case, you can rollback any changes between tests but that's not an option we have in a Mule flow (not easily at least).
 Another option would be to create a unique database for everyone who wishes to run the tests. This isn't really
 realistic to manage long term.
