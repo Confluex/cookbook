@@ -12,8 +12,6 @@ __Table of Contents__
     - [DDL and Mock Data](#ddl-and-mock-data)
     - [Dependencies](#dependencies)
 
-doctoc .
-
 # JDBC
 
 Many Mule projects need to interact with an RDBMS at some point. Mule provides the JDBC transport for easy access
