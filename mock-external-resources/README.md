@@ -104,20 +104,20 @@ This is pretty normal configuration. There are a few interesting points to call 
 
 1. The properties are externalized and read from the __config.properties__.
 
-In our __src/test/resources/config.properties__, we have settings for the embedded data source.
+    In our __src/test/resources/config.properties__, we have settings for the embedded data source.
 
-```ini
-jdbc.url=jdbc:h2:mem:mule;INIT=RUNSCRIPT FROM 'classpath:/jdbc/ddl.sql';MODE=MYSQL
-jdbc.username=sa
-jdbc.password=
-jdbc.driver=org.h2.Driver
-jdbc.validationQuery=select 1
-```
+    ```ini
+    jdbc.url=jdbc:h2:mem:mule;INIT=RUNSCRIPT FROM 'classpath:/jdbc/ddl.sql';MODE=MYSQL
+    jdbc.username=sa
+    jdbc.password=
+    jdbc.driver=org.h2.Driver
+    jdbc.validationQuery=select 1
+    ```
 
-> Put your non-embedded config.properties somewhere on the classpath for the server (e.g. MULE\_HOME/conf or in src/main/resources)
+    > Put your non-embedded config.properties somewhere on the classpath for the server (e.g. MULE\_HOME/conf or in src/main/resources)
 
-Notice that we've made use of the h2 features to run a script: __ddl.sql__ and set the compatibility mode to __MYSQL__
-_(to help us emulate our production environment better)_.
+    Notice that we've made use of the h2 features to run a script: __ddl.sql__ and set the compatibility mode to __MYSQL__
+    _(to help us emulate our production environment better)_.
 
 2. We've externalized our SQL query templates into a file. This isn't necessary but it's nicer than writting SQL inside
 your XML file.
