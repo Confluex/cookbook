@@ -102,7 +102,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 
 This is pretty normal configuration. There are a few interesting points to call out.
 
-1) The properties are externalized and read from the __config.properties__.
+1. The properties are externalized and read from the __config.properties__.
 
 In our __src/test/resources/config.properties__, we have settings for the embedded data source.
 
@@ -119,7 +119,7 @@ jdbc.validationQuery=select 1
 Notice that we've made use of the h2 features to run a script: __ddl.sql__ and set the compatibility mode to __MYSQL__
 _(to help us emulate our production environment better)_.
 
-2) We've externalized our SQL query templates into a file. This isn't necessary but it's nicer than writting SQL inside
+2. We've externalized our SQL query templates into a file. This isn't necessary but it's nicer than writting SQL inside
 your XML file.
 
 ## DDL and Mock Data
