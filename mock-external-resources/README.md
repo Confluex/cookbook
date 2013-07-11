@@ -33,10 +33,10 @@ A locally embedded database which loads up fresh, predictable data upon test sta
 
 The database we've selected is H2. Why H2?
 
-- It's a simple but robust, embeddable database created by the original developer of the HSQL datbase.
-- Has configurable database [compatability modes](http://www.h2database.com/html/grammar.html#set_mode) to emulate
+- It's a simple but robust, embeddable database created by the original developer of the HSQL database.
+- Has configurable database [compatibility modes](http://www.h2database.com/html/grammar.html#set_mode) to emulate
 non-ansi SQL grammar of other databases
-- Clear and [throrough documentation](http://www.h2database.com/html/grammar.html)
+- Clear and [thorough documentation](http://www.h2database.com/html/grammar.html)
 - The ability to [run SQL scripts](http://www.h2database.com/html/grammar.html#runscript) on startup
 - [CSV bulk loading](http://www.h2database.com/html/tutorial.html#csv) of data
 
