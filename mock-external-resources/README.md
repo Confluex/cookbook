@@ -27,7 +27,7 @@ case, you can rollback any changes between tests but that's not an option we hav
 Another option would be to create a unique database for everyone who wishes to run the tests. This isn't really
 realistic to manage long term.
 
-A locally embeddded database which loads up fresh, predictable data upon test startup is the approach we're using here.
+A locally embedded database which loads up fresh, predictable data upon test startup is the approach we're using here.
 
 ## H2 Database
 
