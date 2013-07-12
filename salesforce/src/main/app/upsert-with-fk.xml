@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc"
+      xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      version="CE-3.4.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/5.0/mule-sfdc.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+">
+
+    <!-- you'll need to create your own conf.properties in src/main/resources
+        to match your environment -->
+    <context:property-placeholder location="classpath:conf.properties"/>
+
+    <sfdc:config name="Salesforce" username="${sf.user}"
+                 password="${sf.password}" securityToken="${sf.token}" doc:name="Salesforce">
+        <sfdc:connection-pooling-profile
+                initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
+    </sfdc:config>
+
+    <vm:connector name="defaultVmConnector">
+        <vm:queue-profile maxOutstandingMessages="500">
+            <default-persistent-queue-store/>
+        </vm:queue-profile>
+    </vm:connector>
+    <vm:endpoint name="upsert" exchange-pattern="request-response" path="sf.upsert"/>
+    <vm:endpoint name="errors" path="sf.errors"/>
+    <flow name="upsert-flow" doc:name="upsert-flow">
+        <inbound-endpoint ref="upsert"/>
+        <logger message="Upsert payload: #[payload]" level="INFO" category="upsert-flow" doc:name="Log Contact Info"/>
+        <sfdc:upsert config-ref="Salesforce" doc:name="Salesforce" externalIdFieldName="OriginalEmail__c"
+                     type="Contact">
+            <sfdc:objects ref="#[payload]"/>
+        </sfdc:upsert>
+        <logger message="SalesForce response payload: #[payload]" level="INFO" category="upsert-flow"
+                doc:name="Log Status"/>
+        <catch-exception-strategy>
+            <outbound-endpoint ref="errors"/>
+        </catch-exception-strategy>
+    </flow>
+</mule>
