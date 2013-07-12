@@ -21,7 +21,7 @@ class UpsertWithFkFunctionTest extends FunctionalTestCase {
                         FirstName: "Mike",
                         LastName: "Cantrell",
                         Email: "mike@devnull.org",
-                        Account: account
+                        Account: ["ExternalId__c": 138]
                 ]
         ]
         def msg = muleContext.client.send("upsert", payload, [:], 10000)

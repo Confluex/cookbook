@@ -16,6 +16,10 @@ http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfd
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 ">
 
+    <spring:beans>
+        <spring:bean id="mapToSalesForceObjectTransformer" class="com.confluex.sandbox.MapToSalesForceObjectTransformer"/>
+    </spring:beans>
+
     <!-- you'll need to create your own conf.properties in src/main/resources
         to match your environment -->
     <context:property-placeholder location="classpath:conf.properties"/>
@@ -36,6 +40,7 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     <flow name="upsert-flow" doc:name="upsert-flow">
         <inbound-endpoint ref="upsert"/>
         <logger message="Upsert payload: #[payload]" level="INFO" category="upsert-flow" doc:name="Log Contact Info"/>
+        <transformer ref="mapToSalesForceObjectTransformer"/>
         <sfdc:upsert config-ref="Salesforce" doc:name="Salesforce" externalIdFieldName="OriginalEmail__c"
                      type="Contact">
             <sfdc:objects ref="#[payload]"/>
