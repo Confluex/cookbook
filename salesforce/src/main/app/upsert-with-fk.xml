@@ -17,7 +17,8 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
 ">
 
     <spring:beans>
-        <spring:bean id="mapToSalesForceObjectTransformer" class="com.confluex.sandbox.MapToSalesForceObjectTransformer"/>
+        <spring:bean id="mapToSalesForceObjectTransformer"
+                     class="com.confluex.sandbox.MapToSalesForceObjectTransformer"/>
     </spring:beans>
 
     <!-- you'll need to create your own conf.properties in src/main/resources
