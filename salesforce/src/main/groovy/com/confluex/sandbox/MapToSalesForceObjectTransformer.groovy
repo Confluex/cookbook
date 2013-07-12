@@ -3,9 +3,7 @@ package com.confluex.sandbox
 import com.sforce.soap.partner.sobject.SObject
 import groovy.util.logging.Slf4j
 import org.mule.api.transformer.TransformerException
-import org.mule.common.metadata.datatype.DataTypeFactory
 import org.mule.transformer.AbstractTransformer
-
 
 @Slf4j
 class MapToSalesForceObjectTransformer extends AbstractTransformer {
