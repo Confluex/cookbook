@@ -7,7 +7,7 @@ import org.junit.Test
 class MapToSalesForceObjectTransformerTest {
 
     @Test
-    void shouldConvertEmbeddedMapsToSalesForceObjects() {
+    void shouldConvertEmbeddedMapsToSalesForceObjectsWithListOfMaps() {
         def payload = [
                 [
                         OriginalEmail__c: "mike@devnull.org",
@@ -18,6 +18,8 @@ class MapToSalesForceObjectTransformerTest {
                 ]
         ]
         def response = new MapToSalesForceObjectTransformer().doTransform(payload, null) as List<Map>
-        assert response[0].Account instanceof SObject
+        def account = response[0].Account as SObject
+        assert account.getChild("ExternalId__c").value == 138
     }
+
 }
