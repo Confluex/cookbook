@@ -41,9 +41,15 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     <flow name="upsert-flow" doc:name="upsert-flow">
         <inbound-endpoint ref="upsert"/>
         <logger message="Upsert payload: #[payload]" level="INFO" category="upsert-flow" doc:name="Log Contact Info"/>
-        <transformer ref="mapToSalesForceObjectTransformer"/>
+        <!--<transformer ref="mapToSalesForceObjectTransformer"/>-->
+        <set-variable variableName="sfdcObjectType" value="Contact" />
+        <choice>
+            <when expression="#[payload[0].containsKey('Cost__c')]">
+                <set-variable variableName="sfdcObjectType" value="Mission__c" />
+            </when>
+        </choice>
         <sfdc:upsert config-ref="Salesforce" doc:name="Salesforce" externalIdFieldName="OriginalEmail__c"
-                     type="Contact">
+                     type="#[sfdcObjectType]">
             <sfdc:objects ref="#[payload]"/>
         </sfdc:upsert>
         <logger message="SalesForce response payload: #[payload]" level="INFO" category="upsert-flow"

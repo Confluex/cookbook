@@ -13,17 +13,35 @@ class UpsertWithFkFunctionTest extends FunctionalTestCase {
 
     @Test
     void shouldUpsertRecordWithFk() {
-        def account = new SObject(type: "Account")
-        account.setField("ExternalId__c", 138)
         def payload = [
                 [
-                        OriginalEmail__c: "mike@devnull.org",
-                        FirstName: "Mike",
-                        LastName: "Cantrell",
-                        Email: "mike@devnull.org",
+                        OriginalEmail__c: "trafacz@gmail.com",
+                        FirstName: "Thaddeus",
+                        LastName: "Rafacz",
+                        Email: "trafacz@confluex.com",
                         Account: ["ExternalId__c": 138]
                 ]
         ]
+        def msg = muleContext.client.send("upsert", payload, [:], 10000)
+
+        assert !muleContext.client.request("errors", 1000)?.exceptionPayload?.exception
+        assert msg.payload[0].success == true
+    }
+
+    @Test
+    void shouldUpsertCustomObjectWithFk() {
+        def payload = [
+                [
+                        Name: "Juno",
+                        "ExternalId__c": 100,
+                        "Cost__c": 700000000,
+                        "Destination__c": [
+                                type: "Planet__c",
+                                "ExternalId__c": 5
+                        ]
+                ]
+        ]
+
         def msg = muleContext.client.send("upsert", payload, [:], 10000)
 
         assert !muleContext.client.request("errors", 1000)?.exceptionPayload?.exception
