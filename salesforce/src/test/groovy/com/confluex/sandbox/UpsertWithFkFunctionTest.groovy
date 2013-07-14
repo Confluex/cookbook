@@ -15,10 +15,10 @@ class UpsertWithFkFunctionTest extends FunctionalTestCase {
     void shouldUpsertRecordWithFk() {
         def payload = [
                 [
-                        OriginalEmail__c: "trafacz@gmail.com",
-                        FirstName: "Thaddeus",
-                        LastName: "Rafacz",
-                        Email: "trafacz@confluex.com",
+                        OriginalEmail__c: "mike@devnull.org",
+                        FirstName: "Mike",
+                        LastName: "Cantrell",
+                        Email: "mike@devnull.org",
                         Account: ["ExternalId__c": 138]
                 ]
         ]
@@ -35,7 +35,7 @@ class UpsertWithFkFunctionTest extends FunctionalTestCase {
                         Name: "Juno",
                         "ExternalId__c": 100,
                         "Cost__c": 700000000,
-                        "Destination__c": [
+                        "Destination__r": [
                                 type: "Planet__c",
                                 "ExternalId__c": 5
                         ]
