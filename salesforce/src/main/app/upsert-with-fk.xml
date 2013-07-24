@@ -41,7 +41,7 @@ http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/cu
     <flow name="upsert-flow" doc:name="upsert-flow">
         <inbound-endpoint ref="upsert"/>
         <logger message="Upsert payload: #[payload]" level="INFO" category="upsert-flow" doc:name="Log Contact Info"/>
-        <transformer ref="mapToSalesForceObjectTransformer"/>
+        <!--<transformer ref="mapToSalesForceObjectTransformer"/>-->
         <sfdc:upsert config-ref="Salesforce" doc:name="Salesforce" externalIdFieldName="OriginalEmail__c"
                      type="Contact">
             <sfdc:objects ref="#[payload]"/>
