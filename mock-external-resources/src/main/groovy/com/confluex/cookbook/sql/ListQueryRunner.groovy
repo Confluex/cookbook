@@ -9,8 +9,6 @@ import java.sql.SQLException
 
 class ListQueryRunner extends QueryRunner {
 
-    DataSource dataSource
-
     @Override
     Object query(Connection conn, String sql, ResultSetHandler rsh, Object[] params) throws SQLException {
         sql = parseArguments(sql, params)
@@ -21,7 +19,7 @@ class ListQueryRunner extends QueryRunner {
         def sb = new StringBuffer()
         def m = sql =~ /\?/
         params.eachWithIndex { p, i ->
-            if (m.find(i)) {
+            if (m.find(i+1)) {
                 if (p instanceof List) {
                     m.appendReplacement(sb, createArgumentTokens(p.size()))
                 }
