@@ -38,9 +38,11 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
                 </spring:bean>
             </spring:constructor-arg>
         </spring:bean>
+
+        <spring:bean id="listQueryRunner" class="com.confluex.cookbook.sql.ListQueryRunner"/>
     </spring:beans>
 
-    <jdbc:connector name="defaultJdbcConnector" dataSource-ref="dataSource">
+    <jdbc:connector name="defaultJdbcConnector" dataSource-ref="dataSource" queryRunner-ref="listQueryRunner">
         <jdbc:query key="userByUserName" value-ref="userByUserNameQuery"/>
     </jdbc:connector>
 

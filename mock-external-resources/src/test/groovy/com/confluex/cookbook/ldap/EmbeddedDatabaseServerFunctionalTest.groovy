@@ -19,7 +19,8 @@ class EmbeddedDatabaseServerFunctionalTest extends FunctionalTestCase {
 
     @Test
     void shouldLookupUsersFromInClause() {
-        def msg = muleContext.client.send("getUserInfo", "bmurray", [:], 10000)
-        assert msg.payload == [[USER_NAME:'bmurray', LAST_NAME:'Murray', FIRST_NAME:'Bill']]
+        def payload = ["bmurray", "rmoranis"]
+        def msg = muleContext.client.send("getUserInfo", payload, [:], 10000)
+        assert msg.payload == [[USER_NAME:'bmurray', LAST_NAME:'Murray', FIRST_NAME:'Bill'], [USER_NAME:'rmoranis', LAST_NAME:'Moranis', FIRST_NAME:'Rick']]
     }
 }
