@@ -320,6 +320,12 @@
                 <version>${mule.version}</version>
                 <scope>${container.scope}</scope>
             </dependency>
+            <dependency>
+                <groupId>com.mulesoft.muleesb.transports</groupId>
+                <artifactId>mule-transport-jdbc-ee</artifactId>
+                <version>${mule.version}</version>
+                <scope>provided</scope>
+            </dependency>
             <!-- Scripting -->
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>

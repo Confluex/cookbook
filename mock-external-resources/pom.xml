@@ -28,6 +28,14 @@
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-jdbc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mulesoft.muleesb.modules</groupId>
+            <artifactId>mule-module-spring-config-ee</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mulesoft.muleesb.transports</groupId>
+            <artifactId>mule-transport-jdbc-ee</artifactId>
+        </dependency>
 
         <!-- utils -->
         <dependency>

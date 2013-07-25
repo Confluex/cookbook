@@ -1,6 +1,6 @@
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
-      xmlns:jdbc="http://www.mulesoft.org/schema/mule/jdbc"
+      xmlns:jdbc-ee="http://www.mulesoft.org/schema/mule/ee/jdbc"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:context="http://www.springframework.org/schema/context"
       xmlns:spring="http://www.springframework.org/schema/beans"
@@ -8,7 +8,7 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
-http://www.mulesoft.org/schema/mule/jdbc http://www.mulesoft.org/schema/mule/jdbc/current/mule-jdbc.xsd
+http://www.mulesoft.org/schema/mule/ee/jdbc http://www.mulesoft.org/schema/mule/ee/jdbc/current/mule-jdbc-ee.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
     <context:property-placeholder location="classpath:config.properties"/>
@@ -42,15 +42,15 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
         <spring:bean id="listQueryRunner" class="com.confluex.cookbook.sql.ListQueryRunner"/>
     </spring:beans>
 
-    <jdbc:connector name="defaultJdbcConnector" dataSource-ref="dataSource" queryRunner-ref="listQueryRunner">
-        <jdbc:query key="userByUserName" value-ref="userByUserNameQuery"/>
-    </jdbc:connector>
+    <jdbc-ee:connector name="defaultJdbcConnector" dataSource-ref="dataSource" queryRunner-ref="listQueryRunner">
+        <jdbc-ee:query key="userByUserName" value-ref="userByUserNameQuery"/>
+    </jdbc-ee:connector>
 
     <vm:endpoint name="getUserInfo" path="user.info" exchange-pattern="request-response"/>
     <flow name="jdbc-test-flow">
         <inbound-endpoint ref="getUserInfo"/>
         <logger level="INFO" category="jdbc-test-flow" message="JDBC Parameters: #[payload]"/>
-        <jdbc:outbound-endpoint queryKey="userByUserName" exchange-pattern="request-response"/>
+        <jdbc-ee:outbound-endpoint queryKey="userByUserName" exchange-pattern="request-response"/>
         <logger level="INFO" category="jdbc-test-flow" message="JDBC Query Results: #[payload]"/>
     </flow>
 </mule>
